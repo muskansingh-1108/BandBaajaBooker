@@ -1,2 +1,0 @@
-# BandBaajaBooker
-Event booking website
