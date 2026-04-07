@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!user) return res.status(400).json({ message: 'Invalid credentials, Please sign up first' });
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
@@ -82,6 +82,8 @@ exports.verifyOTP = async (req, res) => {
         await OTP.deleteOne({ _id: validOTP._id }); // Delete OTP after usage
 
         res.json({
+            
+            message: 'Account verified successfully. You can now log in.',
             _id: user.id,
             name: user.name,
             email: user.email,
