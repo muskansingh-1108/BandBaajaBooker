@@ -5,10 +5,10 @@ import Home from './pages/Home';
 import EventDetail from './pages/EventDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import UserDashboard from './pages/UserDashboard';
-import AdminDashboard from './pages/AdminDashboard';
-import PaymentSuccess from './pages/PaymentSuccess';
-import PaymentFailed from './pages/PaymentFailed';
+import UserDashboard from './pages/UserDashboard.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
+import PaymentSuccess from './pages/PaymentSuccess.jsx';
+import PaymentFailed from './pages/PaymentFailed.jsx';
 
 function App() {
     return (
