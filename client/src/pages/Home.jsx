@@ -28,9 +28,13 @@ const Home = () => {
 
     return (
         <div className="flex flex-col min-h-screen">
+            
             {/* Hero Section */}
             <div className="relative bg-black text-white rounded-3xl overflow-hidden mb-12 shadow-2xl">
-                <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=3000&auto=format&fit=crop')] bg-cover bg-center"></div>
+                <div
+                className="absolute inset-0 opacity-40 bg-cover bg-center"
+                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1459749411175-04bf5292ceea')" }}
+                ></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
                 <div className="relative p-10 md:p-20 text-center flex flex-col items-center z-10">
                     <span className="bg-white/20 text-white backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 border border-white/20">Welcome to BandBaajaBooker</span>
