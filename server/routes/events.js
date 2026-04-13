@@ -11,4 +11,3 @@ router.delete('/:id', protect, admin, deleteEvent);
 
 module.exports = router;
 
-router.get('/', getEvents);

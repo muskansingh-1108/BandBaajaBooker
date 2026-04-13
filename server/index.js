@@ -12,7 +12,7 @@ const bookingRoutes = require('./routes/bookings');
 const app = express();
 
 // Middleware
-import cors from 'cors';
+
 
 app.use(cors({
     origin: '*'

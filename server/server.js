@@ -12,7 +12,7 @@ const bookingRoutes = require('./routes/bookings');
 const app = express();
 
 // Middleware
-import cors from 'cors';
+
 
 app.use(cors({
     origin: '*'
@@ -35,4 +35,3 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 app.get('/', (req, res) => {
   res.send('API is running');
 });
-app.use('/api/events', require('./routes/events'));
