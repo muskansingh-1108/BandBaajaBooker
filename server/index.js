@@ -25,8 +25,8 @@ app.post('/api/register', async (req, res) => {
     const user = { id: Date.now().toString(), name, email, password: hashedPassword };
     users.push(user);
     
-    const token = jwt.sign({ id: user.id }, 'bandbaajasecret');
-    res.json({ success: true, token, user: { id: user.id, name, email } });
+    const token = jwt.sign({ id: user._id }, 'bandbaajasecret');
+    res.json({ success: true, token, user: { id: user._id, name, email } });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }
@@ -42,8 +42,8 @@ app.post('/api/login', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid credentials' });
     }
     
-    const token = jwt.sign({ id: user.id }, 'bandbaajasecret');
-    res.json({ success: true, token, user: { id: user.id, name: user.name, email } });
+    const token = jwt.sign({ id: user._id }, 'bandbaajasecret');
+    res.json({ success: true, token, user: { id: user._id, name: user.name, email } });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }

@@ -58,11 +58,11 @@ exports.login = async (req, res) => {
         }
 
         res.json({
-            _id: user.id,
+            _id: user._id,
             name: user.name,
             email: user.email,
             role: user.role,
-            token: generateToken(user.id, user.role)
+            token: generateToken(user._id, user.role)
         });
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error: error.message });
@@ -84,11 +84,11 @@ exports.verifyOTP = async (req, res) => {
         res.json({
             
             message: 'Account verified successfully. You can now log in.',
-            _id: user.id,
+            _id: user._id,
             name: user.name,
             email: user.email,
             role: user.role,
-            token: generateToken(user.id, user.role)
+            token: generateToken(user._id, user.role)
         });
     } catch (error) {
         res.status(500).json({ message: 'Server Error' });
