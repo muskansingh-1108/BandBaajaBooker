@@ -21,7 +21,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 
 // Database Connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/bandbaajabooker')
+mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://muskansingh:9661359851@cluster0.zpam3sp.mongodb.net/BandBaajaBooker?appName=Cluster0')
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB Connection Error:', err));
 

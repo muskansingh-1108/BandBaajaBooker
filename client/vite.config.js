@@ -11,7 +11,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api',
         changeOrigin: true,
         secure: false
       }

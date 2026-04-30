@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // ✅ VITE CORRECT: import.meta.env (NOT process.env)
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api',
   timeout: 10000,
   headers: { 
     'Content-Type': 'application/json',
