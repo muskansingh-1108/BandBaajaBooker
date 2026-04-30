@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'Invalid credentials, Please sign up first' });
+        if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
@@ -58,11 +58,11 @@ exports.login = async (req, res) => {
         }
 
         res.json({
-            _id: user._id,
+            _id: user.id,
             name: user.name,
             email: user.email,
             role: user.role,
-            token: generateToken(user._id, user.role)
+            token: generateToken(user.id, user.role)
         });
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error: error.message });
@@ -82,13 +82,11 @@ exports.verifyOTP = async (req, res) => {
         await OTP.deleteOne({ _id: validOTP._id }); // Delete OTP after usage
 
         res.json({
-            
-            message: 'Account verified successfully. You can now log in.',
-            _id: user._id,
+            _id: user.id,
             name: user.name,
             email: user.email,
             role: user.role,
-            token: generateToken(user._id, user.role)
+            token: generateToken(user.id, user.role)
         });
     } catch (error) {
         res.status(500).json({ message: 'Server Error' });

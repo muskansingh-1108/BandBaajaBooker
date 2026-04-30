@@ -1,28 +1,31 @@
 {
   "name": "bandbaajabooker-server",
   "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "event",
+    "booking"
+  ],
+  "license": "ISC",
+  "author": "muskan singh",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "event",
-    "booking"
-  ],
-  "author": "muskan singh",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "expressjs": "^1.0.1",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.3.1",
-    "nodemailer": "^8.0.3"
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.1",
+    "nodemailer": "^8.0.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.27",
