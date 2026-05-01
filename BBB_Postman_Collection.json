@@ -1,6 +1,6 @@
 {
     "info": {
-        "_postman_id": "c7a8b29e-4c5d-4a1v-b3nf-9a8x7b6c5d4e",
+        "_postman_id": "46713866-621e162d-ae56-4a95-be71-a9055302a345",
         "name": "BandBaajaBooker APIs",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -23,10 +23,10 @@
                             "raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:5000/api/auth/register",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/auth/register",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -66,10 +66,10 @@
                             "raw": "{\n    \"email\": \"test@example.com\",\n    \"otp\": \"123456\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:5000/api/auth/verify-otp",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/auth/verify-otp",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -109,10 +109,10 @@
                             "raw": "{\n    \"email\": \"admin@bandbaajabooker.com\",\n    \"password\": \"password123\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:5000/api/auth/login",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/auth/login",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -134,10 +134,10 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "http://localhost:5000/api/events",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/events",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -153,10 +153,10 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "http://localhost:5000/api/events/{{event_id}}",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/events/{{event_id}}",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -200,10 +200,10 @@
                             "raw": "{\n    \"title\": \"Tech Conference 2024\",\n    \"description\": \"A massive conference for developers\",\n    \"date\": \"2024-12-01\",\n    \"location\": \"San Francisco, CA\",\n    \"category\": \"Technology\",\n    \"totalSeats\": 100,\n    \"ticketPrice\": 500,\n    \"image\": \"https://images.unsplash.com/photo-1540575467063-178a50c2df87\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:5000/api/events",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/events",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -232,10 +232,10 @@
                             "raw": "{\n    \"ticketPrice\": 550\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:5000/api/events/{{event_id}}",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/events/{{event_id}}",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -257,10 +257,10 @@
                             }
                         ],
                         "url": {
-                            "raw": "http://localhost:5000/api/events/{{event_id}}",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/events/{{event_id}}",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -291,10 +291,10 @@
                             }
                         ],
                         "url": {
-                            "raw": "http://localhost:5000/api/bookings/send-otp",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/bookings/send-otp",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -338,10 +338,10 @@
                             "raw": "{\n    \"eventId\": \"{{event_id}}\",\n    \"otp\": \"123456\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:5000/api/bookings",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/bookings",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -370,10 +370,10 @@
                             "raw": "{\n    \"paymentStatus\": \"paid\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:5000/api/bookings/{{booking_id}}/confirm",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/bookings/{{booking_id}}/confirm",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -396,10 +396,10 @@
                             }
                         ],
                         "url": {
-                            "raw": "http://localhost:5000/api/bookings/my",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/bookings/my",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -421,10 +421,10 @@
                             }
                         ],
                         "url": {
-                            "raw": "http://localhost:5000/api/bookings/{{booking_id}}",
+                            "raw": "http://https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev/api/bookings/{{booking_id}}",
                             "protocol": "http",
                             "host": [
-                                "localhost"
+                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
