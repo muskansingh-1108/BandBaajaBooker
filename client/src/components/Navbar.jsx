@@ -1,39 +1,75 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { FaTicketAlt } from 'react-icons/fa';
+import { authAPI } from '../services/api';
+import { Music, User, LogOut, LayoutDashboard, Settings } from 'lucide-react';
 
 const Navbar = () => {
-    const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
+    const userJson = localStorage.getItem('user');
+    const user = userJson ? JSON.parse(userJson) : null;
 
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
+    const handleLogout = async () => {
+        try {
+            await authAPI.logout();
+        } catch (error) {
+            console.error("Logout error:", error);
+        } finally {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            navigate('/login');
+        }
     };
 
     return (
-        <nav className="bg-gray-900 shadow-lg">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
-                    <Link to="/" className="text-white text-2xl font-bold flex items-center gap-2">
-                        <FaTicketAlt /> BandBaajaBooker
-                    </Link>
-                    <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-                        <Link to="/" className="text-gray-200 hover:text-white transition cursor-pointer">Events</Link>
-                        {user ? (
-                            <>
-                                <Link to={user.role === 'admin' ? '/admin' : '/dashboard'} className="text-gray-200 hover:text-white transition">Dashboard</Link>
-                                <button onClick={handleLogout} className="bg-gray-700 hover:bg-black text-white px-4 py-2 rounded-md transition">Logout</button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to="/login" className="text-gray-200 hover:text-white transition">Login</Link>
-                                <Link to="/register" className="bg-white text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md font-semibold transition">Sign Up</Link>
-                            </>
-                        )}
+        <nav className="h-20 px-4 sm:px-10 flex items-center justify-between border-b border-natural-border bg-white/50 backdrop-blur-sm sticky top-0 z-50">
+            <div className="flex items-center">
+                <Link to="/" className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-natural-accent rounded-full flex items-center justify-center text-white shadow-md">
+                        <Music size={20} />
                     </div>
-                </div>
+                    <span className="text-2xl font-serif font-bold tracking-tight text-natural-dark">
+                        BandBaaja<span className="italic text-natural-accent">Booker</span>
+                    </span>
+                </Link>
+            </div>
+
+            <div className="flex items-center gap-4 sm:gap-8 text-sm font-medium text-natural-muted">
+                {user ? (
+                    <div className="flex items-center gap-4">
+                        <Link to="/dashboard" className="hover:text-natural-accent transition-colors">
+                            My Bookings
+                        </Link>
+                        {user.role === 'admin' && (
+                            <Link to="/admin" className="hover:text-natural-accent transition-colors">
+                                Admin
+                            </Link>
+                        )}
+                        <div className="h-6 w-px bg-natural-border mx-1"></div>
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-natural-accent/10 flex items-center justify-center text-natural-accent font-bold text-xs ring-2 ring-natural-accent/20">
+                                {user.name?.[0].toUpperCase()}
+                            </div>
+                            <button 
+                                onClick={handleLogout}
+                                className="p-2 text-natural-muted hover:text-red-500 transition-colors"
+                            >
+                                <LogOut size={18} />
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="flex items-center gap-6">
+                        <Link to="/login" className="hover:text-natural-accent transition-colors">
+                            Sign In
+                        </Link>
+                        <Link 
+                            to="/register" 
+                            className="px-6 py-2.5 bg-natural-dark text-natural-bg rounded-full hover:bg-natural-dark/90 transition-all shadow-md"
+                        >
+                            Get Started
+                        </Link>
+                    </div>
+                )}
             </div>
         </nav>
     );

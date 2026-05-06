@@ -1,23 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaCheckCircle } from 'react-icons/fa';
+import { CheckCircle, ArrowRight } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const PaymentSuccess = () => {
     return (
-        <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
-            <div className="bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full text-center border-t-8 border-green-500 transform transition-all hover:-translate-y-1">
-                <FaCheckCircle className="text-green-500 text-7xl mx-auto mb-6 drop-shadow-sm" />
-                <h1 className="text-4xl font-black text-gray-900 mb-4">Booking Confirmed!</h1>
-                <p className="text-gray-500 mb-8 text-lg">Your ticket has been booked successfully. A confirmation email has been sent to your registered email address.</p>
+        <div className="flex items-center justify-center py-20 px-4">
+            <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="max-w-md w-full bg-white rounded-3xl p-10 text-center shadow-lg border border-green-50"
+            >
+                <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8">
+                    <CheckCircle size={48} />
+                </div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">Payment Successful!</h1>
+                <p className="text-gray-600 mb-10 leading-relaxed">
+                    Great news! Your booking has been confirmed. You will receive an email confirmation with your tickets shortly.
+                </p>
                 <div className="space-y-4">
-                    <Link to="/dashboard" className="block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl transition shadow-lg hover:shadow-xl">
+                    <Link to="/dashboard" className="block w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 shadow-md transition-all">
                         View My Tickets
                     </Link>
-                    <Link to="/" className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 px-6 rounded-xl transition">
-                        Discover More Events
+                    <Link to="/" className="flex items-center justify-center gap-2 text-blue-600 font-bold hover:gap-3 transition-all">
+                        Go Home <ArrowRight size={18} />
                     </Link>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };
