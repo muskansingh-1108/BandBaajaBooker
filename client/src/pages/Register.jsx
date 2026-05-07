@@ -1,10 +1,3 @@
-
-
-import api from '../utils/axios';
-
-import { motion } from 'motion/react';
-import { UserPlus, Mail, Lock, User, AlertCircle } from 'lucide-react';
-import { AxiosError } from 'axios';
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
@@ -13,115 +6,131 @@ const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [otp, setOtp] = useState('');
+    const [showOTP, setShowOTP] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const contextValue = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
+
         try {
-            await api.post('/register', { name, email, password });
-            navigate('/login');
+            if (!showOTP) {
+                await contextValue.register(name, email, password);
+                setShowOTP(true);
+            } else {
+                await contextValue.verifyOTP(email, otp);
+                navigate('/dashboard');
+            }
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed. Please try again.');
+            
+            const errorMessage = err?.message || 
+                            err?.response?.data?.message || 
+                            'Something went wrong!';
+            setError(errorMessage);  // String guaranteed!
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-sm border border-gray-100"
-            >
-                <div>
-                    <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                        Create your account
-                    </h2>
-                    <p className="mt-2 text-center text-sm text-gray-600">
-                        Already have an account?{' '}
-                        <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
-                            Sign in here
-                        </Link>
-                    </p>
-                </div>
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                    {error && (
-                        <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-lg flex items-center gap-2 text-sm">
-                            <AlertCircle size={18} />
-                            {error}
+        <div className="max-w-md mx-auto mt-16 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+            <div className="text-center mb-8">
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Create an Account</h2>
+                <p className="text-gray-500">Join Eventora today</p>
+            </div>
+
+            {error && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 shadow-md">
+                    <div className="flex items-center">
+                        <svg className="w-5 h-5 text-red-500 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                        </svg>
+                        <div className="text-sm leading-5">
+                            {(() => {
+                                if (typeof error === 'string') return error;
+                                if (error?.message) return error.message;
+                                if (error?.response?.data?.message) return error.response.data.message;
+                                return 'An unexpected error occurred. Please try again.';
+                            })()}
                         </div>
-                    )}
-                    <div className="rounded-md shadow-sm space-y-4">
+                    </div>
+                </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+                {!showOTP ? (
+                    <>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                    <User size={18} />
-                                </div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
                                 <input
                                     type="text"
                                     required
-                                    className="appearance-none relative block w-full pl-10 px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                    placeholder="Enter your full name"
+                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                 />
-                            </div>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Email address</label>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                    <Mail size={18} />
-                                </div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
                                 <input
                                     type="email"
                                     required
-                                    className="appearance-none relative block w-full pl-10 px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                    placeholder="Enter your email"
+                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                            </div>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                    <Lock size={18} />
-                                </div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
                                 <input
                                     type="password"
                                     required
-                                    className="appearance-none relative block w-full pl-10 px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                    placeholder="Create a password"
+                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                            </div>
                         </div>
-                    </div>
-
+                    </>
+                ) : (
                     <div>
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md transition-all disabled:opacity-50"
-                        >
-                            <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                                <UserPlus className="h-5 w-5 text-blue-500 group-hover:text-blue-400" aria-hidden="true" />
-                            </span>
-                            {loading ? 'Creating account...' : 'Create Account'}
-                        </button>
+                        <p className="text-sm text-green-700 bg-green-50 p-3 mb-4 rounded border border-green-200">
+                            An OTP has been sent to your email. Please verify your account.
+                        </p>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">Verification Code (OTP)</label>
+                            <input
+                                type="text"
+                                required
+                                placeholder="6-digit code"
+                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm font-bold tracking-widest text-center text-lg"
+                                value={otp}
+                                onChange={(e) => setOtp(e.target.value)}
+                                maxLength="6"
+                            />
                     </div>
-                </form>
-            </motion.div>
+                )}
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-black focus:ring-4 focus:ring-gray-200 transition shadow-md mt-4"
+                >
+                    {loading ? 'Processing...' : (showOTP ? 'Verify & Complete' : 'Sign Up')}
+                </button>
+            </form>
+
+            {!showOTP && (
+                <p className="text-center mt-6 text-gray-600">
+                    Already have an account? <Link to="/login" className="text-gray-900 font-bold hover:underline">Sign in</Link>
+                </p>
+            )}
         </div>
+
     );
 };
 
