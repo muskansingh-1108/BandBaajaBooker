@@ -64,6 +64,7 @@ const Login = () => {
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 focus:border-gray-700 transition shadow-sm"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                placeholder="bandbaajabooker@example.com"
                             />
                         </div>
                         <div>
@@ -74,23 +75,32 @@ const Login = () => {
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 focus:border-gray-700 transition shadow-sm"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Minimum 6 characters"
                             />
                         </div>
                     </>
                 ) : (
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">Verification Code (OTP)</label>
-                        <input
-                            type="text"
-                            required
-                            placeholder="6-digit code"
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm font-bold tracking-widest text-center text-lg"
-                            value={otp}
-                            onChange={(e) => setOtp(e.target.value)}
-                            maxLength="6"
-                        />
-                    </div>
+                    <>
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                            <p className="text-sm text-green-800">
+                                ✅ OTP sent to <strong>{email}</strong>
+                            </p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Enter OTP *</label>
+                            <input
+                                type="text"
+                                required
+                                maxLength={6}
+                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 transition shadow-sm font-mono font-bold text-center text-xl tracking-widest"
+                                value={otp}
+                                onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
+                                placeholder="123456"
+                            />
+                        </div>
+                    </>
                 )}
+                
                 <button
                     type="submit"
                     disabled={loading}

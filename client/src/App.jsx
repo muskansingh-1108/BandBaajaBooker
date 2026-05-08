@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Music } from 'lucide-react';
-import { AuthProvider } from './context/AuthContext';  // ✅ ADDED
+import { AuthProvider } from './context/AuthContext';  
 import Home from './pages/Home';
 import EventDetail from './pages/EventDetail';
 import Login from './pages/Login';

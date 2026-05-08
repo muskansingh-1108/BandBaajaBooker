@@ -1,23 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authAPI } from '../services/api';
-import { Music, User, LogOut, LayoutDashboard, Settings } from 'lucide-react';
+import { AuthContext } from '../context/AuthContext';  // ✅ Added
+import { Music, LogOut } from 'lucide-react';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const userJson = localStorage.getItem('user');
-    const user = userJson ? JSON.parse(userJson) : null;
+    const { user, logout } = useContext(AuthContext);  // ✅ Use AuthContext
 
-    const handleLogout = async () => {
-        try {
-            await authAPI.logout();
-        } catch (error) {
-            console.error("Logout error:", error);
-        } finally {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            navigate('/login');
-        }
+    const handleLogout = () => {
+        logout();  // ✅ AuthContext logout
+        navigate('/login', { replace: true });
     };
 
     return (
@@ -47,11 +39,12 @@ const Navbar = () => {
                         <div className="h-6 w-px bg-natural-border mx-1"></div>
                         <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-full bg-natural-accent/10 flex items-center justify-center text-natural-accent font-bold text-xs ring-2 ring-natural-accent/20">
-                                {user.name?.[0].toUpperCase()}
+                                {user.name?.[0]?.toUpperCase() || 'U'}
                             </div>
                             <button 
                                 onClick={handleLogout}
                                 className="p-2 text-natural-muted hover:text-red-500 transition-colors"
+                                title="Logout"
                             >
                                 <LogOut size={18} />
                             </button>
