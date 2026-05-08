@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../utils/axios';
-import { motion } from 'motion/react';
-import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react';
+
+import { AuthContext } from '../context/AuthContext';
+
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [otp, setOtp] = useState('');
-    const [showOTP, setShowOTP] = useState(false);    
+    const [showOTP, setShowOTP] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-
+    const { login, verifyOTP } = useContext(AuthContext);
     const navigate = useNavigate();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -45,7 +48,7 @@ const Login = () => {
         <div className="max-w-md mx-auto mt-20 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
             <div className="text-center mb-8">
                 <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Welcome Back</h2>
-                <p className="text-gray-500">Sign in to your Eventora account</p>
+                <p className="text-gray-500">Sign in to your BandBaajaBooker account</p>
             </div>
 
             {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-6 text-center shadow-inner border border-red-100">{error}</div>}

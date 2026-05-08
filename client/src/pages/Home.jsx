@@ -25,7 +25,7 @@ const Home = () => {
 
     return (
         <div className="space-y-16">
-            <section className="text-center py-20 px-4 bg-[radial-gradient(circle_at_top_right,#FEFAE0,transparent)] rounded-3xl">
+            <section className="text-center py-20 px-4 bg-[radial-gradient(circle_at_top_right,#6b1b3e,transparent)] rounded-3xl">
                 <motion.h1 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -130,7 +130,7 @@ const Home = () => {
                                         </div>
                                         <Link 
                                             to={`/events/${event._id}`}
-                                            className="px-6 py-3 bg-natural-accent text-white rounded-xl text-xs font-bold hover:shadow-lg hover:shadow-natural-accent/20 transition-all flex items-center gap-2"
+                                            className="px-6 py-3 bg-natural-accent #1e293b rounded-xl text-xs font-bold hover:shadow-lg hover:shadow-natural-accent/20 transition-all flex items-center gap-2"
                                         >
                                             View Details <ArrowRight size={14} />
                                         </Link>

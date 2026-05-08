@@ -36,16 +36,16 @@ const EventDetail = () => {
 
         setBooking(true);
         try {
-            await api.post('/bookings', { eventId: id });
-            navigate('/payment-success');
+           
+            await api.post('/bookings/send-otp', { eventId: id });  
+            navigate('/verify-booking-otp'); 
         } catch (error) {
             console.error("Booking error:", error);
-            navigate('/payment-failed');
+            alert(error.response?.data?.message || 'Booking failed');
         } finally {
             setBooking(false);
         }
     };
-
     if (loading) return <div className="flex justify-center items-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div></div>;
     if (!event) return <div className="text-center py-20 text-gray-500">Event not found.</div>;
 
@@ -108,7 +108,7 @@ const EventDetail = () => {
                             <button 
                                 onClick={handleBooking}
                                 disabled={booking || event.availableSeats === 0}
-                                className={`w-full py-5 rounded-2xl font-black text-white shadow-lg transition-all flex items-center justify-center gap-3 ${
+                                className={`w-full py-5 rounded-2xl font-black  shadow-lg transition-all flex items-center justify-center gap-3 ${
                                     event.availableSeats === 0 
                                         ? 'bg-natural-muted cursor-not-allowed' 
                                         : 'bg-natural-accent hover:bg-natural-accent/90 hover:scale-[1.02]'

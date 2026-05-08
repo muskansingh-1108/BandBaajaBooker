@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -10,12 +10,28 @@ const Register = () => {
     const [showOTP, setShowOTP] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [contextReady, setContextReady] = useState(false);
+
 
     const contextValue = useContext(AuthContext);
     const navigate = useNavigate();
 
+
+    useEffect(() => {
+        if (contextValue !== null && contextValue !== undefined) {  // ✅ FIXED
+            setContextReady(true);
+        }
+    }, [contextValue]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+
+        if (!contextReady || !contextValue?.register) {
+            setError('Auth service not ready. Please refresh.');
+            return;
+        }
+
         setLoading(true);
         setError('');
 
@@ -28,38 +44,32 @@ const Register = () => {
                 navigate('/dashboard');
             }
         } catch (err) {
-            
-            const errorMessage = err?.message || 
-                            err?.response?.data?.message || 
-                            'Something went wrong!';
-            setError(errorMessage);  // String guaranteed!
+            setError(err?.message || 'Something went wrong!');
         } finally {
             setLoading(false);
         }
     };
 
+
+    if (!contextReady) {
+        return (
+            <div className="max-w-md mx-auto mt-16 text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-md mx-auto mt-16 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
             <div className="text-center mb-8">
                 <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Create an Account</h2>
-                <p className="text-gray-500">Join Eventora today</p>
+                <p className="text-gray-500">Join BandBaajaBooker today</p>
             </div>
 
             {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 shadow-md">
-                    <div className="flex items-center">
-                        <svg className="w-5 h-5 text-red-500 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                        </svg>
-                        <div className="text-sm leading-5">
-                            {(() => {
-                                if (typeof error === 'string') return error;
-                                if (error?.message) return error.message;
-                                if (error?.response?.data?.message) return error.response.data.message;
-                                return 'An unexpected error occurred. Please try again.';
-                            })()}
-                        </div>
-                    </div>
+                <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-6 text-center border border-red-200">
+                    {error}
                 </div>
             )}
 
@@ -67,70 +77,80 @@ const Register = () => {
                 {!showOTP ? (
                     <>
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                                <input
-                                    type="text"
-                                    required
-                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                                <input
-                                    type="email"
-                                    required
-                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-                                <input
-                                    type="password"
-                                    required
-                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                        </div>
-                    </>
-                ) : (
-                    <div>
-                        <p className="text-sm text-green-700 bg-green-50 p-3 mb-4 rounded border border-green-200">
-                            An OTP has been sent to your email. Please verify your account.
-                        </p>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">Verification Code (OTP)</label>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
                             <input
                                 type="text"
                                 required
-                                placeholder="6-digit code"
-                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm font-bold tracking-widest text-center text-lg"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                                maxLength="6"
+                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="John Doe"
                             />
-                    </div>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                            <input
+                                type="email"
+                                required
+                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="john@example.com"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Password *</label>
+                            <input
+                                type="password"
+                                required
+                                minLength={6}
+                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Minimum 6 characters"
+                            />
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                            <p className="text-sm text-green-800">
+                                ✅ OTP sent to <strong>{email}</strong>
+                            </p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Enter OTP *</label>
+                            <input
+                                type="text"
+                                required
+                                maxLength={6}
+                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 transition shadow-sm font-mono font-bold text-center text-xl tracking-widest"
+                                value={otp}
+                                onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
+                                placeholder="123456"
+                            />
+                        </div>
+                    </>
                 )}
 
                 <button
                     type="submit"
-                    disabled={loading}
-                    className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-black focus:ring-4 focus:ring-gray-200 transition shadow-md mt-4"
+                    disabled={loading || (!showOTP && (!name || !email || password.length < 6)) || (showOTP && otp.length !== 6)}
+                    className="w-full bg-linear-to-r from-gray-800 to-gray-900 text-white font-bold py-3 px-6 rounded-xl hover:from-gray-900 hover:to-black focus:ring-4 focus:ring-gray-300 transition-all duration-200 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    {loading ? 'Processing...' : (showOTP ? 'Verify & Complete' : 'Sign Up')}
+                    {loading ? '⏳ Processing...' : showOTP ? '✅ Verify OTP' : '🚀 Create Account'}
                 </button>
             </form>
 
             {!showOTP && (
-                <p className="text-center mt-6 text-gray-600">
-                    Already have an account? <Link to="/login" className="text-gray-900 font-bold hover:underline">Sign in</Link>
+                <p className="text-center mt-8 text-sm text-gray-600 border-t pt-6">
+                    Already have an account?{' '}
+                    <Link to="/login" className="font-bold text-gray-900 hover:text-gray-700 hover:underline transition-colors">
+                        Sign In
+                    </Link>
                 </p>
             )}
         </div>
-
     );
 };
 
