@@ -126,7 +126,7 @@ const Home = () => {
                                     <div className="mt-auto pt-8 border-t border-natural-border flex justify-between items-center">
                                         <div className="flex flex-col">
                                             <span className="text-[10px] text-natural-muted font-bold uppercase tracking-widest">Entry From</span>
-                                            <span className="text-2xl font-black text-natural-dark">₹{event.price || 'Priceless'}</span>
+                                            <span className="text-2xl font-black text-natural-dark">₹{event.ticketPrice}</span>
                                         </div>
                                         <Link 
                                             to={`/events/${event._id}`}
