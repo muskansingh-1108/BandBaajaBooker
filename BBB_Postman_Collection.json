@@ -26,7 +26,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/auth/register",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -69,7 +69,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/auth/verify-otp",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -112,7 +112,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/auth/login",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -183,7 +183,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -202,7 +202,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events/{{event_id}}",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -249,7 +249,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -281,7 +281,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events/{{event_id}}",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -306,7 +306,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events/{{event_id}}",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -340,7 +340,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings/send-otp",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -387,7 +387,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -419,7 +419,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings/{{booking_id}}/confirm",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -445,7 +445,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings/my",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
@@ -470,7 +470,7 @@
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings/{{booking_id}}",
                             "protocol": "http",
                             "host": [
-                                "https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev"
+                                "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
                             "port": "5000",
                             "path": [
