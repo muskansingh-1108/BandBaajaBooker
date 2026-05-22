@@ -1,7 +1,7 @@
 {
     "info": {
         "_postman_id": "46713866-621e162d-ae56-4a95-be71-a9055302a345",
-        "name": "BBB APIs",
+        "name": "event APIs",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
