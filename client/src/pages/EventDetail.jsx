@@ -4,6 +4,8 @@ import api from '../utils/axios';
 import { AuthContext } from '../context/AuthContext';
 import { FaCalendarAlt, FaMapMarkerAlt, FaChair, FaMoneyBillWave } from 'react-icons/fa';
 
+import { QRCodeSVG } from 'qrcode.react';
+
 const EventDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -15,6 +17,9 @@ const EventDetail = () => {
     const [showOTP, setShowOTP] = useState(false);
     const [error, setError] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
+
+    const [showPayment, setShowPayment] = useState(false);
+    const [showQR, setShowQR] = useState(false);
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -48,6 +53,8 @@ const EventDetail = () => {
                 await api.post('/bookings', { eventId: event._id, otp });
                 setSuccessMsg('Booking requested! Awaiting admin confirmation.');
                 setShowOTP(false);
+                // Show payment button after successful booking
+                setShowPayment(true);
                 // Update local seats count dynamically after booking
                 setEvent({ ...event, availableSeats: event.availableSeats - 1 });
             }
@@ -83,7 +90,7 @@ const EventDetail = () => {
                         <p className="text-gray-600 text-lg leading-relaxed mb-6">{event.description}</p>
                     </div>
 
-                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 min-w-[300px] w-full md:w-auto shrink-0 shadow-sm">
+                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 min-w-75 w-full md:w-auto shrink-0 shadow-sm">
                         <h3 className="text-xl font-bold text-gray-800 mb-6">Booking Details</h3>
 
                         <div className="space-y-4 mb-8">
@@ -155,11 +162,47 @@ const EventDetail = () => {
                         >
                             {bookingLoading ? 'Processing...' : (showOTP ? 'Verify OTP & Confirm' : (successMsg && !showOTP ? 'Request Sent' : (isSoldOut ? 'Sold Out' : 'Confirm Registration')))}
                         </button>
+
+                        {showPayment && (
+                            <button
+                                onClick={() => setShowQR(true)}
+                                className="w-full mt-4 py-4 px-6 rounded-xl font-bold text-lg transition shadow-lg bg-blue-600 hover:bg-blue-700 text-white hover:shadow-xl hover:-translate-y-1"
+                            >
+                                💳 Proceed to Payment
+                            </button>
+                        )}
                         {error && <p className="text-red-500 mt-4 text-center font-medium bg-red-50 p-2 rounded">{error}</p>}
                         {successMsg && <p className="text-green-600 mt-4 text-center font-medium bg-green-50 p-2 rounded">{successMsg}</p>}
                     </div>
                 </div>
             </div>
+
+            {showQR && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white p-8 rounded-xl max-w-sm w-full text-center">
+                        <h3 className="text-xl font-bold mb-4">Scan to Pay</h3>
+                        <p className="mb-4 text-gray-600">Amount: ₹{event.ticketPrice}</p>
+                        <div className="bg-white p-4 border inline-block">
+                            <QRCodeSVG 
+                                value={`upi://pay?pa=9661359851@ybl&pn=BandBaajaBooker&am=${event.ticketPrice}&cu=INR`} 
+                                size={250}
+                            />
+                        </div>
+                        <p className="mt-4 text-sm text-gray-500">
+                            Scan using any UPI App (GPay, PhonePe, Paytm)
+                        </p>
+                        <button
+                            onClick={() => {
+                                setShowQR(false);
+                                navigate('/dashboard');
+                            }}
+                            className="mt-4 w-full bg-green-600 text-white py-3 rounded-xl font-bold"
+                        >
+                            Done - Go to Dashboard
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
