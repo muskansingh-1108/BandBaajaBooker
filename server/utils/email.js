@@ -11,17 +11,27 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendBookingEmail = async (userEmail, userName, eventTitle) => {
+const sendBookingEmail = async (userEmail, userName, eventTitle, eventDate, eventLocation) => {
     try {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: userEmail,
-            subject: `Booking Confirmed: ${eventTitle}`,
+            subject: `🎉 Booking Confirmed: ${eventTitle}`,
             html: `
-        <h2>Hi ${userName}!</h2>
-        <p>Your booking for the event <strong>${eventTitle}</strong> is successfully confirmed.</p>
-        <p>Thank you for choosing BandBaajaBooker.</p>
-      `
+                <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #111;">Hi ${userName}! 🎉</h2>
+                    <p>Your booking is <strong>confirmed</strong>!</p>
+                    
+                    <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3 style="margin-top: 0;">${eventTitle}</h3>
+                        <p><strong>📅 Date:</strong> ${new Date(eventDate).toLocaleDateString()}</p>
+                        <p><strong>📍 Location:</strong> ${eventLocation}</p>
+                    </div>
+                    
+                    <p>Thank you for choosing <strong>BandBaajaBooker</strong>!</p>
+                    <p>See you at the event! 🎊</p>
+                </div>
+            `
         };
         await transporter.sendMail(mailOptions);
         console.log('Email sent successfully to', userEmail);

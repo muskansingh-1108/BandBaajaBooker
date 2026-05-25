@@ -15,6 +15,10 @@ const EventDetail = () => {
     const [bookingLoading, setBookingLoading] = useState(false);
     const [otp, setOtp] = useState('');
     const [showOTP, setShowOTP] = useState(false);
+
+
+    const [lastBookingId, setLastBookingId] = useState(null);
+
     const [error, setError] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
 
@@ -50,7 +54,8 @@ const EventDetail = () => {
                 setShowOTP(true);
                 setSuccessMsg('OTP sent to your email. Please verify to confirm booking.');
             } else {
-                await api.post('/bookings', { eventId: event._id, otp });
+                const { data } = await api.post('/bookings', { eventId: event._id, otp });
+                setLastBookingId(data.booking._id);
                 setSuccessMsg('Booking requested! Awaiting admin confirmation.');
                 setShowOTP(false);
                 // Show payment button after successful booking
@@ -191,10 +196,11 @@ const EventDetail = () => {
                         <p className="mt-4 text-sm text-gray-500">
                             Scan using any UPI App (GPay, PhonePe, Paytm)
                         </p>
+
                         <button
                             onClick={() => {
                                 setShowQR(false);
-                                navigate('/dashboard');
+                                navigate(`/payment-success?bookingId=${lastBookingId}`);
                             }}
                             className="mt-4 w-full bg-green-600 text-white py-3 rounded-xl font-bold"
                         >

@@ -122,3 +122,37 @@ exports.cancelBooking = async (req, res) => {
         res.status(500).json({ message: 'Server Error', error: error.message });
     }
 };
+
+
+
+exports.updatePaymentStatus = async (req, res) => {
+    try {
+        const { paymentStatus } = req.body; // 'paid' or 'not_paid'
+        const booking = await Booking.findById(req.params.id).populate('userId').populate('eventId');
+        
+        if (!booking) return res.status(404).json({ message: 'Booking not found' });
+        
+        // Only allow the user who made the booking or admin
+        if (booking.userId._id.toString() !== req.user.id && req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'Not authorized' });
+        }
+        
+        booking.paymentStatus = paymentStatus;
+        await booking.save();
+        
+        // If payment is paid, send confirmation email
+        if (paymentStatus === 'paid') {
+            await sendBookingEmail(
+                booking.userId.email, 
+                booking.userId.name, 
+                booking.eventId.title,
+                booking.eventId.date,
+                booking.eventId.location
+            );
+        }
+        
+        res.json({ message: 'Payment status updated', booking });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+};
