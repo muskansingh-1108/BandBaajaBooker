@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';  // ✅ Added
 import { Music, LogOut } from 'lucide-react';
+import logoImg from './image/logoCreator_imagetologo.jpg';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -16,11 +17,14 @@ const Navbar = () => {
         <nav className="h-20 px-4 sm:px-10 flex items-center justify-between border-b border-natural-border bg-white/50 backdrop-blur-sm sticky top-0 z-50">
             <div className="flex items-center">
                 <Link to="/" className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-natural-accent rounded-full flex items-center justify-center text-white shadow-md">
-                        <Music size={20} />
-                    </div>
+                    <div
+                        className="w-18 h-18 rounded-full bg-cover bg-center shadow-md border border-white/20"
+                        style={{
+                            backgroundImage: `url(${logoImg})`
+                        }}
+                    ></div>
                     <span className="text-2xl font-serif font-bold tracking-tight text-natural-dark">
-                        BandBaaja<span className="italic text-natural-accent">Booker</span>
+                        <span className="italic text-natural-accent">BandBaajaBooker</span>
                     </span>
                 </Link>
             </div>
