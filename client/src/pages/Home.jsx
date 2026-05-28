@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import api from '../utils/axios';
 import { motion } from 'motion/react';
 import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react';
+import fastBookingImg from '../components/image/fastbooking.png';
+import seamlessAccessImg from '../components/image/seamlessbooking.png';
+import securePlatformImg from '../components/image/secureplatform.png';
 
 const Home = () => {
     const [events, setEvents] = useState([]);
@@ -59,13 +62,17 @@ const Home = () => {
 
             <section className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
                 {[
-                    { title: 'Fast Booking', desc: 'Secure your tickets instantly with our streamlined infrastructure built for speed.', color: 'bg-natural-accent', icon: Calendar },
-                    { title: 'Seamless Access', desc: 'Download tickets instantly or manage them right from your personal dashboard.', color: 'bg-natural-dark', icon: Users },
-                    { title: 'Secure Platform', desc: 'All transactions are protected by cutting-edge security and 2FA OTP technology.', color: 'bg-natural-muted', icon: MapPin }
+                    { title: 'Fast Booking', desc: 'Secure your tickets instantly with our streamlined infrastructure built for speed.', image: fastBookingImg },
+                    { title: 'Seamless Access', desc: 'Download tickets instantly or manage them right from your personal dashboard.', image: seamlessAccessImg },
+                    { title: 'Secure Platform', desc: 'All transactions are protected by cutting-edge security and 2FA OTP technology.', image: securePlatformImg }
                 ].map((feature, idx) => (
-                    <div key={idx} className="p-8 bg-white/40 border border-natural-border rounded-[2.5rem] shadow-sm backdrop-blur-sm">
-                        <div className={`w-14 h-14 ${feature.color} text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
-                            <feature.icon size={28} />
+                    <div key={idx} className="p-8 bg-white/40 border border-natural-border rounded-[2.5rem] shadow-sm backdrop-blur-sm flex flex-col items-center text-center">
+                        <div className="w-60 h-60  mb-10 flex items-center justify-center">
+                            <img 
+                                src={feature.image} 
+                                alt={feature.title}
+                                className="w-full h-full object-contain"
+                            />
                         </div>
                         <h3 className="text-2xl font-serif font-bold text-natural-dark mb-4">{feature.title}</h3>
                         <p className="text-natural-muted leading-relaxed">{feature.desc}</p>
