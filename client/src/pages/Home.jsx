@@ -8,6 +8,7 @@ const Home = () => {
     const [events, setEvents] = useState([]);
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
+    const [viewMode, setViewMode] = useState('grid');
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -47,12 +48,12 @@ const Home = () => {
                     transition={{ delay: 0.2 }}
                     className="mt-12 flex flex-wrap justify-center gap-6"
                 >
-                    <Link to="/register" className="px-10 py-4 bg-natural-dark text-natural-bg rounded-full font-bold hover:bg-natural-dark/90 transition-all shadow-xl hover:shadow-2xl">
+                    {/* <Link to="/register" className="px-10 py-4 bg-natural-dark text-natural-bg rounded-full font-bold hover:bg-natural-dark/90 transition-all shadow-xl hover:shadow-2xl">
                         Explore Events
                     </Link>
                     <Link to="/login" className="px-10 py-4 bg-white text-natural-dark border border-natural-border rounded-full font-bold hover:bg-white/80 transition-all shadow-sm">
                         Host Your Own
-                    </Link>
+                    </Link> */}
                 </motion.div>
             </section>
 
@@ -77,26 +78,47 @@ const Home = () => {
                     <div>
                         <h2 className="text-4xl font-serif font-bold text-natural-dark">Available in <span className="italic text-natural-accent">Udaipur</span></h2>
                         <p className="text-natural-muted mt-2 font-medium">Premium troupes and experiences ready for your celebration.</p>
-                    </div>
+                        </div>
+
                     <div className="flex gap-2 bg-white p-1.5 rounded-2xl shadow-sm border border-natural-border">
-                        <button className="px-6 py-2 bg-natural-accent/10 text-natural-accent rounded-xl text-sm font-bold">Grid</button>
-                        <button className="px-6 py-2 text-sm text-natural-muted font-medium">List</button>
+                        <button 
+                            onClick={() => setViewMode('grid')}
+                            className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${viewMode === 'grid' ? 'bg-natural-accent/10 text-natural-accent' : 'text-natural-muted hover:text-natural-dark'}`}
+                        >
+                            Grid
+                        </button>
+                        <button 
+                            onClick={() => setViewMode('list')}
+                            className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${viewMode === 'list' ? 'bg-natural-accent/10 text-natural-accent' : 'text-natural-muted hover:text-natural-dark'}`}
+                        >
+                            List
+                        </button>
                     </div>
                 </div>
 
                 {loading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div className={`grid gap-10 ${
+                        viewMode === 'grid' 
+                            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+                            : 'grid-cols-1'
+                        }`}>
                         {[1, 2, 3].map((i) => (
                             <div key={i} className="animate-pulse bg-white/50 rounded-4xl h-96 border border-natural-border"></div>
                         ))}
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div className={`grid gap-10 ${
+                        viewMode === 'grid' 
+                            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+                            : 'grid-cols-1'
+                        }`}>
                         {events.map((event) => (
                             <motion.div 
                                 key={event._id}
                                 whileHover={{ y: -8 }}
-                                className="bg-white rounded-4xl overflow-hidden shadow-sm border border-natural-border group flex flex-col"
+                                className={`bg-white overflow-hidden shadow-sm border border-natural-border group flex flex-col ${
+                                    viewMode === 'grid' ? 'rounded-4xl' : 'rounded-2xl'
+                                }`}
                             >
                                 <div className="h-56 bg-natural-border relative overflow-hidden">
                                     <img 
@@ -141,6 +163,7 @@ const Home = () => {
                     </div>
                 )}
             </section>
+
 
             <section className="bg-natural-dark rounded-[3rem] p-12 md:p-20 text-center text-natural-bg relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(212,163,115,0.2),transparent)] pointer-events-none"></div>
