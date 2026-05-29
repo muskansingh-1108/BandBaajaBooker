@@ -30,6 +30,7 @@ exports.register = async (req, res) => {
         const otp = generateOTP();
         await OTP.create({ email, otp, action: 'account_verification' });
         await sendOTPEmail(email, otp, 'account_verification');
+        await sendOTPEmail(email, otp, 'login_otp');
 
         res.status(201).json({
             message: 'OTP sent to email. Please verify.',
@@ -90,5 +91,68 @@ exports.verifyOTP = async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+// Send OTP for login - simplified version
+exports.sendLoginOTP = async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        const user = await User.findOne({ email });
+        
+        if (user) {
+            const otp = generateOTP();
+            
+            // Delete old OTP and create new one
+            await OTP.deleteOne({ email, action: 'login_otp' });
+            await OTP.create({ email, otp, action: 'login_otp' });
+            await sendOTPEmail(email, otp, 'login_otp');
+            
+            // Log OTP to console (for testing)
+            console.log('='.repeat(30));
+            console.log('🔐 LOGIN OTP for', email + ':', otp);
+            console.log('='.repeat(30));
+            
+            // Return OTP in response for testing
+            res.json({ message: 'OTP sent', otp: otp });
+        } else {
+            res.json({ message: 'If account exists, OTP will be sent' });
+        }
+    } catch (error) {
+        console.error('❌ Error:', error);
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+};
+
+// Verify OTP for login
+exports.verifyLoginOTP = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+        
+        const validOTP = await OTP.findOne({ email, otp, action: 'login_otp' });
+        
+        if (!validOTP) {
+            return res.status(400).json({ message: 'Invalid or expired OTP' });
+        }
+        
+        const user = await User.findOne({ email });
+        
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+        
+        // Delete OTP after usage
+        await OTP.deleteOne({ _id: validOTP._id });
+        
+        res.json({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            token: generateToken(user.id, user.role)
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error: error.message });
     }
 };

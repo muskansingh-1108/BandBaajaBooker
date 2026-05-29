@@ -33,27 +33,17 @@ const Login = () => {
 
         try {
             if (!showOTP) {
-                console.log('🔄 Attempting login...'); // Debug
-                
-                await contextValue.login(email, password);
-                
-                console.log('✅ Login success - going to dashboard'); // Debug
-                // Direct success - go to dashboard
-                navigate(contextValue.user?.role === 'admin' ? '/admin' : '/dashboard');
-                
+                // First, send OTP to email
+                await contextValue.sendLoginOTP(email);
+                setShowOTP(true);
+                setError('OTP sent to your email. Please verify.');
             } else {
-                console.log('🔄 Verifying OTP...'); // Debug
-                await contextValue.verifyOTP(email, otp);
-                
-                console.log('✅ OTP verified - going to dashboard'); // Debug
+                // Then verify OTP
+                await contextValue.verifyLoginOTP(email, otp);
                 navigate(contextValue.user?.role === 'admin' ? '/admin' : '/dashboard');
             }
         } catch (err) {
-            console.error('❌ Login Error:', err); // 🔍 Debug
-            
-            // ✅ FORCE OTP for ANY login error (temporary fix)
-            setShowOTP(true);
-            setError('Please verify with OTP sent to your email.');
+            setError(err?.response?.data?.message || err?.message || 'Something went wrong!');
         } finally {
             setLoading(false);
         }
@@ -113,6 +103,23 @@ const Login = () => {
                             <p className="text-sm text-green-800">
                                 ✅ Enter OTP sent to <strong>{email}</strong>
                             </p>
+                            <button
+                                type="button"
+                                onClick={async () => {
+                                    try {
+                                        setLoading(true);
+                                        await contextValue.sendLoginOTP(email);
+                                        setError('OTP sent again to your email.');
+                                    } catch (err) {
+                                        setError('Failed to send OTP. Try again.');
+                                    } finally {
+                                        setLoading(false);
+                                    }
+                                }}
+                                className="text-xs text-green-700 hover:underline mt-1 block"
+                            >
+                                Resend OTP
+                            </button>                                
                             <button
                                 type="button"
                                 onClick={() => setShowOTP(false)} // Back to login

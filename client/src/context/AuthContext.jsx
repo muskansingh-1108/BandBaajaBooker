@@ -1,4 +1,3 @@
-// context/AuthContext.jsx - FIXED
 import React, { createContext, useState, useEffect } from 'react';
 import api from '../utils/axios';
 
@@ -9,7 +8,6 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // ✅ CONSISTENT KEY: 'user' everywhere
         const userInfo = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         
@@ -27,12 +25,9 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const { data } = await api.post('/auth/login', { email, password });
-            
-            // ✅ CONSISTENT STORAGE KEYS
             localStorage.setItem('user', JSON.stringify(data.user || data));
             localStorage.setItem('token', data.token);
             setUser(data.user || data);
-            
             return data;
         } catch (error) {
             if (error.response?.data?.needsVerification) throw error.response.data;
@@ -47,20 +42,39 @@ export const AuthProvider = ({ children }) => {
 
     const verifyOTP = async (email, otp) => {
         const { data } = await api.post('/auth/verify-otp', { email, otp });
-        
-        // ✅ SAVE AFTER VERIFICATION
         localStorage.setItem('user', JSON.stringify(data.user || data));
         localStorage.setItem('token', data.token);
         setUser(data.user || data);
-        
         return data;
+    };
+
+    // NEW: Send OTP for login
+    const sendLoginOTP = async (email) => {
+        try {
+            const { data } = await api.post('/auth/send-login-otp', { email });
+            return data;
+        } catch (error) {
+            throw error.response?.data || error;
+        }
+    };
+
+    // NEW: Verify OTP for login
+    const verifyLoginOTP = async (email, otp) => {
+        try {
+            const { data } = await api.post('/auth/verify-login-otp', { email, otp });
+            localStorage.setItem('user', JSON.stringify(data.user || data));
+            localStorage.setItem('token', data.token);
+            setUser(data.user || data);
+            return data;
+        } catch (error) {
+            throw error.response?.data || error;
+        }
     };
 
     const logout = () => {
         setUser(null);
-        localStorage.removeItem('user');      // ✅ Consistent
+        localStorage.removeItem('user');
         localStorage.removeItem('token');
-        localStorage.removeItem('userInfo');  // ✅ Old key bhi remove
     };
 
     const value = {
@@ -68,6 +82,8 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         verifyOTP,
+        sendLoginOTP,
+        verifyLoginOTP,
         logout,
         loading
     };

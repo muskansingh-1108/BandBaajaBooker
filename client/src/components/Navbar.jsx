@@ -6,7 +6,18 @@ import logoImg from './image/logoCreator_imagetologo.jpg';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { user, logout } = useContext(AuthContext);  // ✅ Use AuthContext
+    const context = useContext(AuthContext);
+    const user = context?.user;
+    const logout = context?.logout;
+
+    // If context not ready, render nothing or loading
+    if (!context) {
+        return (
+            <nav className="h-20 px-4 flex items-center justify-center">
+                <div className="animate-pulse bg-gray-200 h-8 w-32 rounded"></div>
+            </nav>
+        );
+    }
 
     const handleLogout = () => {
         logout();  // ✅ AuthContext logout
