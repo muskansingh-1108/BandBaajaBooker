@@ -24,7 +24,7 @@
                         },
                         "url": {
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/auth/register",
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -110,7 +110,7 @@
                         },
                         "url": {
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/auth/login",
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -181,7 +181,7 @@
                         "header": [],
                         "url": {
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events",
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -200,7 +200,7 @@
                         "header": [],
                         "url": {
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events/{{event_id}}",
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -247,7 +247,7 @@
                         },
                         "url": {
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events",
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -279,7 +279,7 @@
                         },
                         "url": {
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events/{{event_id}}",
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -304,7 +304,7 @@
                         ],
                         "url": {
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/events/{{event_id}}",
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -337,8 +337,8 @@
                             }
                         ],
                         "url": {
-                            "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings/send-otp",
-                            "protocol": "http",
+                            "raw": "http://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev:5000/api/bookings/send-otp",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -385,7 +385,7 @@
                         },
                         "url": {
                             "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings",
-                            "protocol": "http",
+                            "protocol": "https",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
                             ],
@@ -416,7 +416,7 @@
                             "raw": "{\n    \"paymentStatus\": \"paid\"\n}"
                         },
                         "url": {
-                            "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings/{{booking_id}}/confirm",
+                            "raw": "http://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev:5000/api/bookings/{{booking_id}}/confirm",
                             "protocol": "http",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
@@ -467,7 +467,7 @@
                             }
                         ],
                         "url": {
-                            "raw": "https://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev/api/bookings/{{booking_id}}",
+                            "raw": "http://humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev:5000/api/bookings/{{booking_id}}",
                             "protocol": "http",
                             "host": [
                                 "humble-bassoon-wr565rwxxxjp2g44q-5000.app.github.dev"
