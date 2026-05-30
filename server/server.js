@@ -7,7 +7,12 @@ const app = express();
 
 // 🔥 FIXED CORS for port 5173 (Vite)
 app.use(cors({
-  origin: 'http://localhost:5173',  // Vite default port
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://band-baaja-booker.vercel.app',
+    'https://humble-bassoon-wr565rwxxxjp2g44q-5173.app.github.dev'
+  ],  
   credentials: true
 }));
 
