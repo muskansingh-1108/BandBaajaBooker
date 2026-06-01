@@ -19,7 +19,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// ... baki code same hai jo maine diya tha
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
